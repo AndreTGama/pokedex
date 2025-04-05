@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./api
+    container_name: laravel-api
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./api:/var/www
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  web:
+    build: ./web
+    container_name: nextjs-web
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./web:/app
+    networks:
+      - app-network
+    depends_on:
+      - api
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: meu_banco
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  dbdata:
