@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class Trainer extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\TrainerFactory> */
-    use HasFactory, Notifiable, SoftDeletes, HasUuids;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasUuids;
 
     public $incrementing = false;
     protected $keyType = 'string';
@@ -57,4 +57,38 @@ class Trainer extends Authenticatable
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+    
+    /**
+     * Mutator to hash the user's password before saving it to the database.
+     *
+     * @param string $value The plain text password to be hashed.
+     * @return void
+     */
+    function setPasswordAttribute(string $value): void
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+    
+    /**
+     * Get the password attribute.
+     *
+     * @return string
+     */
+    function getAuthPassword(): string
+    {
+        return $this->attributes['password'];
+    }
 }
