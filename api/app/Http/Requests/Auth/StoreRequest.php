@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Trainer;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,8 +23,9 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:trainers,email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required|string|min:8',
         ];
     }
 
@@ -42,6 +43,8 @@ class StoreRequest extends FormRequest
      * - 'password.required': Triggered when the password field is missing.
      * - 'password.min': Triggered when the password is less than 8 characters long.
      * - 'password.confirmed': Triggered when the password confirmation does not match the password.
+     * - 'password_confirmation.required': Triggered when the password confirmation field is missing.
+     * - 'password_confirmation.min': Triggered when the password confirmation is less than 8 characters long.
      */
     public function messages(): array
     {
@@ -53,6 +56,9 @@ class StoreRequest extends FormRequest
             'password.required' => 'The password field is required.',
             'password.min' => 'The password must be at least 8 characters long.',
             'password.confirmed' => 'The password confirmation does not match.',
+            'password_confirmation.required' => 'The password confirmation field is required.',
+            'password_confirmation.min' => 'The password confirmation must be at least 8 characters long.',
+            'password_confirmation.same' => 'The password confirmation must match the password.',
         ];
     }
 }

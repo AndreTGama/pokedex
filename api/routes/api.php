@@ -1,3 +1,3 @@
 <?php
 
-require __DIR__ . '/api/trainer.php';
+require_once __DIR__ . '/api/auth.php';

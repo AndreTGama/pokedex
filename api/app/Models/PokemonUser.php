@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PokemonTrainer extends Model
+class PokemonUser extends Model
 {
     use HasUuids, SoftDeletes;
 
-    protected $table = 'pokemons_trainers';
+    protected $table = 'pokemons_users';
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -20,7 +20,7 @@ class PokemonTrainer extends Model
      * @var array
      */
     protected $fillable = [
-        'trainer_id',
+        'user_id',
         'pokemon_id',
         'created_at',
         'updated_at',

@@ -19,6 +19,7 @@ class ReturnMessage
     {
         return response()->json([
             'message' => $message,
+            'exception' => null,
             'data' => $data,
             'error' => false,
         ], $status ?? 200);
@@ -33,10 +34,11 @@ class ReturnMessage
      * 
      * @return \Illuminate\Http\JsonResponse The JSON response containing the error message, data, and status.
      */
-    public static function error(string $message, array $data = [], int $status = 400): JsonResponse
+    public static function error(string $message, mixed $exexception, array $data = [], int $status = 400): JsonResponse
     {
         return response()->json([
             'message' => $message,
+            'exception' => $exexception,
             'data' => $data,
             'error' => true,
         ], $status ?? 400);

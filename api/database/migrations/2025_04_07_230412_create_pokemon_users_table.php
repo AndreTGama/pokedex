@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pokemons_trainers', function (Blueprint $table) {
+        Schema::create('pokemons_users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('pokemon_id');
-            $table->uuid('trainer_id');
+            $table->uuid('user_id');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('pokemon_id')->references('id')->on('pokemons')->onDelete('restrict');
-            $table->foreign('trainer_id')->references('id')->on('trainers')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pokemons_trainers');
+        Schema::dropIfExists('pokemons_users');
     }
 };
