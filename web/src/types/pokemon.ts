@@ -1,8 +1,8 @@
 export type PokemonResult = {
-  id: number;
+  pokeapi_id: number;
   name: string;
   image: string;
-  type: Array<string>;
+  types: Array<string>;
 };
 
 export type PokemonListResponse = {

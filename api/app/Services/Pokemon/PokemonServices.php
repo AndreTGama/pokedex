@@ -43,8 +43,22 @@ class PokemonServices
             if (!isset($details['id'])) {
                 continue;
             }
-            $pokemons[$key]['id'] = $details['id'];
+            $pokemons[$key]['pokeapi_id'] = $details['id'];
             $pokemons[$key]['name'] = ucfirst($details['name']);
+            $pokemons[$key]['height'] = $details['height'];
+            $pokemons[$key]['weight'] = $details['weight'];
+            $pokemons[$key]['abilities'] = array_map(function ($ability) {
+                return ucfirst($ability['ability']['name']);
+            }, $details['abilities']);
+            $pokemons[$key]['stats'] = array_map(function ($stat) {
+                return [
+                    'name' => ucfirst($stat['stat']['name']),
+                    'base_stat' => $stat['base_stat'],
+                ];
+            }, $details['stats']);
+            $pokemons[$key]['moves'] = array_map(function ($move) {
+                return ucfirst($move['move']['name']);
+            }, $details['moves']);
             $pokemons[$key]['image'] = $details['sprites']['other']['showdown']['front_default'] ?? $details['sprites']['front_default'];
             $pokemons[$key]['types'] = array_map(function ($type) {
                 return ucfirst($type['type']['name']);
