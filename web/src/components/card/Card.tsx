@@ -4,6 +4,7 @@
 import { typeColors } from "@/utils/constants";
 import { PokemonResult } from "@/types/pokemon";
 import Pokeball from "@/assets/img/pokeball.webp";
+import { getTypeGradientStyle } from "@/utils/helpers";
 
 interface CardProps {
     pokemon: PokemonResult;
@@ -24,7 +25,9 @@ export function Card({ pokemon }: CardProps) {
     });
 
     return (
-        <div className="bg-gray-100 rounded-xl p-4 shadow-md flex flex-col items-center justify-between">
+        <div 
+            style={getTypeGradientStyle(pokemon.types)}
+            className="rounded-xl p-4 shadow-md flex flex-col items-center justify-between">
             <div className="relative flex justify-center w-1/3">
                 <img
                     src={Pokeball.src}

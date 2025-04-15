@@ -1,6 +1,6 @@
 // src/app/layout.tsx
-import './globals.css'
-import { ReactQueryProvider } from '@/providers/ReactQueryProvider' // Confirme se é exportado com nome!
+import '../styles/globals.css'
+import { ReactQueryProvider } from '@/providers/ReactQueryProvider'
 
 export const metadata = {
   title: 'Pokédex',
