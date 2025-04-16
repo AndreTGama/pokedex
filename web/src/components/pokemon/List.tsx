@@ -1,27 +1,19 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-
-const fetchPokemons = async () => {
-  const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
-  return res.json()
-}
+import { Card } from '../card/Card'
+import { useList } from '@/hooks/pokemon/useList'
+import { PokemonResult } from '@/types/pokemon'
 
 export function List() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['pokemons'],
-    queryFn: fetchPokemons,
-  })
+  const { data, isLoading, error } = useList()
 
   if (isLoading) return <p>Carregando...</p>
-  if (error) return <p>Erro ao carregar Pokémons.</p>
+  if (error) return <p>Erro ao carregar pokémons 😢</p>
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-      {data.results.map((pokemon: any, index: number) => (
-        <div key={index} className="bg-gray-100 rounded-xl p-4 text-center shadow-md">
-          <p className="capitalize font-bold">{pokemon.name}</p>
-        </div>
+    <div className="grid grid-cols-3 gap-4">
+      {data?.map((pokemon: PokemonResult) => (
+        <Card key={pokemon.pokeapi_id} pokemon={pokemon} />
       ))}
     </div>
   )

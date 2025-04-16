@@ -1,6 +1,9 @@
 // src/app/layout.tsx
-import '../styles/globals.css'
 import { ReactQueryProvider } from '@/providers/ReactQueryProvider'
+import { PokemonProvider } from '@/providers/PokemonProvider'
+import '../styles/globals.css'
+import { PageProvider } from '@/providers/PageProvider'
+import { Navbar } from '@/components/navbar'
 
 export const metadata = {
   title: 'Pokédex',
@@ -12,7 +15,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="pt-BR">
       <body>
         <ReactQueryProvider>
-          <main className="p-4">{children}</main>
+          <PokemonProvider>
+            <PageProvider>
+              <Navbar />
+              <main className="p-4">{children}</main>
+            </PageProvider>
+          </PokemonProvider>
         </ReactQueryProvider>
       </body>
     </html>
